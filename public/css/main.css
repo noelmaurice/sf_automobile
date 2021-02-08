@@ -1,0 +1,37 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    font-size: 16px;
+    margin: 10px;
+}
+
+body {
+    margin: 0;
+    line-height: 1.4;
+    /*letter-spacing: 0.2;*/
+    font-family: sans-serif;
+}
+
+.img-automobile {
+    border: #777777 inset thin;
+}
+
+.div-annonce {
+    border: #0a0a0a solid thin;
+
+}
+
+.search-form {
+    margin: 5px;
+}
+
+.search-form input
+{
+    margin: 2px;
+}
+
+.search-form button {
+    color: white;
+}

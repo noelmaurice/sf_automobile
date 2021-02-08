@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block monTitre %}
+    Créer un compte
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+<div class="row">
+
+    <div class="form-group col-12">
+    {{ form_row(form.username, {
+        "attr" : {
+            "placeholder":"Saisir le login"
+        },
+        "label" : "Identifiant"
+    }) }}
+    </div>
+
+    <div class="form-group col-12">
+    {{ form_row(form.password, {
+        "attr" : {
+            "placeholder":"Saisir le mot de passe"
+        },
+        "label" : "Mot de passe"
+    }) }}
+    </div>
+
+    <div class="form-group col-12">
+    {{ form_row(form.checkPassword, {
+        "attr" : {
+            "placeholder":"Confirmer le mot de passe"
+        },
+        "label" : "Confirmation du mot de passe"
+    }) }}
+    </div>
+
+    <div class="form-group col">
+        <input type="submit" class="btn btn-primary" value="valider">
+    </div>
+
+</div>
+
+    {{ form_end(form) }}
+{% endblock %}

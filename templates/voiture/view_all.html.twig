@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}
+    Liste des voitures
+{% endblock %}
+
+
+
+{% block monTitre %}
+    {% if minAnnee != null and maxAnnee != null %}
+        Voitures de {{ minAnnee }} à {{ maxAnnee }}
+    {% else %}
+        Toutes les voitures
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+
+    <div class="form-inline search-form">
+
+            {{form_start(form) }}
+
+            <div class="form-group">
+
+                <span class="input-group-text" id="">Recherche par année :</span>
+
+                {{ form_row(form.minAnnee, {"attr": {"placeholder": "De l'année..." }, 'label': false}) }}
+
+                {{ form_row(form.maxAnnee, {"attr": {"placeholder": "A l'année..."}, 'label': false}) }}
+
+                <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+
+            </div>
+
+            {{form_end(form)}}
+
+    </div>
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+
+    <div>
+        <a href="{{ path('admin_create') }}" class="d-block btn btn-success">Ajouter</a>
+    </div>
+
+    {% endif %}
+
+    <div class="row no-gutters">
+
+        {% for voiture in voitures %}
+            <div class="col-12 col-lg-6 p-1">
+                <div class="card mb-3 div-annonce">
+                    <div class="row no-gutters align-items-center p-2">
+                        <div class="col-12 col-md-4">
+                            <img src="{{asset('images/' ~ voiture.image)}}" alt="{{ voiture.image }}" class="card-img img-automobile">
+                        </div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title">{{voiture.immatriculation}}</h5>
+                                <hr>
+                                <p class="card-text">
+
+                                    Marque : {{voiture.modele.marque.libelle}}<br>
+                                    Modèle : {{voiture.modele.libelle}} - PM : {{voiture.modele.prixMoyen}}<br>
+                                    Nombre de portes : {{voiture.nbPortes}}<br>
+                                    Année : {{voiture.annee}}<br>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+
+                        <div class="row no-gutters">
+
+                            <a href="{{ path('admin_update', { 'id': voiture.id }) }}" class="col btn btn-warning">Modifier</a>
+
+                            <form method="post" class="col" action="{{ path('admin_delete', { 'id': voiture.id }) }}" onsubmit="return confirm('Voulez-vous supprimer ce véhicule ?');">
+                                <input type="hidden" name="_method" value="supprimer">
+                                <input type="hidden" name="_token" value="{{ csrf_token('supprimer' ~ voiture.id) }}">
+                                <input type="submit" class="btn btn-danger w-100" value="supprimer">
+                            </form>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# display navigation #}
+    <div class="row justify-content-end">
+        <div class="navigation ">
+            {{ knp_pagination_render( voitures) }}
+        </div>
+    </div>
+
+{% endblock %}

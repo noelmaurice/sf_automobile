@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de la voiture{% endblock %}
+
+{% block monTitre %}Voiture {{ voiture.immatriculation }} {% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="form-group col-6">
+            {{ form_row(form.immatriculation, {"attr": {"placeholder": "Immatriculation" }, 'label': 'Immatriculation' }) }}
+        </div>
+
+        <div class="form-group col-6">
+            {{ form_row(form.nbPortes, {"attr": {"placeholder": "Nombres de portes" }, 'label': 'Nombre de portes' }) }}
+        </div>
+
+        <div class="form-group col-6">
+            {{ form_row(form.annee, {"attr": {"placeholder": "Année de mise en service" }, 'label': 'Année de mise en service' }) }}
+        </div>
+
+        <div class="form-group col-6">
+            {{ form_row(form.image, {"attr": {"placeholder": "Nom de l'image" }, 'label': "Image de l'annonce" }) }}
+        </div>
+
+        <div class="form-group col-6">
+            {{ form_row(form.prix, {"attr": {"placeholder": "Prix" }, 'label': 'Prix' }) }}
+        </div>
+
+        <div class="form-group col-6">
+            {{ form_row(form.modele, {"attr": {"placeholder": "Modèle" }, 'label': 'Modèle' }) }}
+        </div>
+    </div>
+
+    <a href="{{ path('admin_view_all_vehicles') }}" class="btn btn-primary">Annuler</a>
+
+    <input type="submit" value="Enregistrer" class="btn btn-success">
+
+    {{ form_end(form) }}
+
+{% endblock %}
